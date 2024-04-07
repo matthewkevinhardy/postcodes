@@ -1,0 +1,100 @@
+package postcode.documents;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Document(indexName = "postcode")
+public class Postcode {
+	@Id
+	private String pcd;
+	private String pcd2;
+	private String pcds;
+	private String dointr;
+	private String doterm;
+	private String oscty;
+	private String ced;
+	private String oslaua;
+	private String osward;
+	private String parish;
+
+	public String getPcd() {
+		return pcd;
+	}
+
+	public void setPcd(String pcd) {
+		this.pcd = pcd;
+	}
+
+	public String getPcd2() {
+		return pcd2;
+	}
+
+	public void setPcd2(String pcd2) {
+		this.pcd2 = pcd2;
+	}
+
+	public String getPcds() {
+		return pcds;
+	}
+
+	public void setPcds(String pcds) {
+		this.pcds = pcds;
+	}
+
+	public String getDointr() {
+		return dointr;
+	}
+
+	public void setDointr(String dointr) {
+		this.dointr = dointr;
+	}
+
+	public String getDoterm() {
+		return doterm;
+	}
+
+	public void setDoterm(String doterm) {
+		this.doterm = doterm;
+	}
+
+	public String getOscty() {
+		return oscty;
+	}
+
+	public void setOscty(String oscty) {
+		this.oscty = oscty;
+	}
+
+	public String getCed() {
+		return ced;
+	}
+
+	public void setCed(String ced) {
+		this.ced = ced;
+	}
+
+	public String getOslaua() {
+		return oslaua;
+	}
+
+	public void setOslaua(String oslaua) {
+		this.oslaua = oslaua;
+	}
+
+	public String getOsward() {
+		return osward;
+	}
+
+	public void setOsward(String osward) {
+		this.osward = osward;
+	}
+
+	public String getParish() {
+		return parish;
+	}
+
+	public void setParish(String parish) {
+		this.parish = parish;
+	}
+
+}
