@@ -5,7 +5,7 @@ import org.testcontainers.utility.DockerImageName;
 
 public class PostcodeElasticsearchContainer extends ElasticsearchContainer {
 
-	private static final String ELASTIC_SEARCH_DOCKER = "elasticsearch:8.7.0";
+	private static final String ELASTIC_SEARCH_DOCKER = "elasticsearch:7.17.19";
 	private static final String CLUSTER_NAME = "cluster.name";
 	private static final String ELASTIC_SEARCH = "elasticsearch";
 	private static final String DISCOVERY_TYPE = "discovery.type";
