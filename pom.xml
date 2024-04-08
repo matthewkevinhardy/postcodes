@@ -24,8 +24,7 @@
 
 	</dependencies>
 	<modules>
-		<module>documents</module>
-		<module>import</module>
+		<module>elastic</module>
 		<module>batch</module>
 		<module>service</module>
 	</modules>
