@@ -28,16 +28,16 @@ import postcode.documents.Ward;
 import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
 
-@SpringBootApplication(scanBasePackages = { "postcode" })
+@SpringBootApplication
 public class BatchImport {
 	public static void main(String[] args) {
 		System.exit(SpringApplication.exit(SpringApplication.run(BatchImport.class, args)));
 	}
 
-	@Value("classpath:/data/ONSPD_NOV_2022_UK.csv")
+	@Value("{postcodes.batch.postcodeFile}")
 	private Resource postcodeFile;
 
-	@Value("classpath:/data/Ward names and codes UK as at 12_22_NSPD.csv")
+	@Value("{postcodes.batch.wardFile}")
 	private Resource wardFile;
 
 	@Autowired
