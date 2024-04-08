@@ -68,7 +68,7 @@ public class ServiceTest {
 	}
 
 	@Test
-	void wardEndpointTest() throws Exception {
+	void wardEndpointTest() {
 		Ward testWard = this.restTemplate.getForObject("http://localhost:" + port + "/ward/WardId", Ward.class);
 		assertThat(testWard.getWd22cd(), equalTo("WardId"));
 		assertThat(testWard.getWd22nm(), equalTo("WardName"));
