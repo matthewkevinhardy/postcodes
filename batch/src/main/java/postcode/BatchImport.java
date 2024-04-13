@@ -34,10 +34,10 @@ public class BatchImport {
 		System.exit(SpringApplication.exit(SpringApplication.run(BatchImport.class, args)));
 	}
 
-	@Value("{postcodes.batch.postcodeFile}")
+	@Value("${postcodes.batch.postcodeFile}")
 	private Resource postcodeFile;
 
-	@Value("{postcodes.batch.wardFile}")
+	@Value("${postcodes.batch.wardFile}")
 	private Resource wardFile;
 
 	@Autowired
