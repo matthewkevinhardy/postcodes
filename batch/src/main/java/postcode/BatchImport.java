@@ -23,8 +23,10 @@ import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import postcode.documents.Parish;
 import postcode.documents.Postcode;
 import postcode.documents.Ward;
+import postcode.repos.ParishRepo;
 import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
 
@@ -40,11 +42,17 @@ public class BatchImport {
 	@Value("${postcodes.batch.wardFile}")
 	private Resource wardFile;
 
+	@Value("${postcodes.batch.parishFile}")
+	private Resource parishFile;
+
 	@Autowired
 	private WardRepo wardRepo;
 
 	@Autowired
 	private PostcodeRepo postcodeRepo;
+
+	@Autowired
+	private ParishRepo parishRepo;
 
 	@Bean
 	public ClientConfiguration clientConfiguration() {
@@ -65,7 +73,12 @@ public class BatchImport {
 				reader(Ward.class, new String[] { "WD22CD", "WD22NM" }, new int[] { 0, 1 }, wardFile), writer(wardRepo),
 				null);
 
-		return new JobBuilder("importCsvJob", jobRepository).start(wardStep).next(postcodeStep).build();
+		Step parishStep = importStep(jobRepository, transactionManager,
+				reader(Parish.class, new String[] { "PARNCP21CD", "PARNCP21NM" }, new int[] { 0, 1 }, parishFile),
+				writer(parishRepo), null);
+
+		return new JobBuilder("importCsvJob", jobRepository).start(wardStep).next(parishStep).next(postcodeStep)
+				.build();
 	}
 
 	/**
