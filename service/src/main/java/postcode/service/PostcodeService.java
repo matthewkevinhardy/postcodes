@@ -1,9 +1,9 @@
 package postcode.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class PostcodeService {
 		return postcodeRepo.findById(id);
 	}
 
-	public List<Postcode> getPostcodeByWard(String wd22cd, Pageable pageable) {
+	public Page<Postcode> getPostcodeByWard(String wd22cd, Pageable pageable) {
 		return postcodeRepo.findByOsward(wd22cd, pageable);
 	}
 
@@ -44,7 +44,7 @@ public class PostcodeService {
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
 			Optional<Ward> w = getWard(pc.get().getOsward());
-			response = new PostcodeWard(pc.get(), w.get());
+			response = new PostcodeWard.PostcodeWardBuilder(pc.get(), w.get()).build();
 		}
 
 		return response;

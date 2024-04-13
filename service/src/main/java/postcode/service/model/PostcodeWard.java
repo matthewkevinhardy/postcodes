@@ -29,4 +29,18 @@ public class PostcodeWard {
 		this.ward = ward;
 	}
 
+	public static class PostcodeWardBuilder {
+		private Postcode postcode;
+		private Ward ward;
+
+		public PostcodeWardBuilder(Postcode postcode, Ward ward) {
+			this.postcode = postcode;
+			this.ward = ward;
+		}
+
+		public PostcodeWard build() {
+			return new PostcodeWard(postcode, ward);
+		}
+	}
+
 }
