@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import postcode.documents.Parish;
 import postcode.documents.Postcode;
 import postcode.documents.Ward;
+import postcode.repos.ParishRepo;
 import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
 import postcode.service.model.PostcodeDTO;
@@ -19,6 +21,9 @@ public class PostcodeService {
 
 	@Autowired
 	private PostcodeRepo postcodeRepo;
+
+	@Autowired
+	private ParishRepo parishRepo;
 
 	@Autowired
 	private WardRepo wardRepo;
@@ -39,6 +44,10 @@ public class PostcodeService {
 		return wardRepo.findByWd22cd(wd22cd);
 	}
 
+	public Optional<Parish> getParish(String pARNCP21CD) {
+		return parishRepo.findByPARNCP21CD(pARNCP21CD);
+	}
+
 	public PostcodeWardDTO postcodeWard(String pcd) {
 		PostcodeWardDTO response = null;
 
@@ -57,7 +66,8 @@ public class PostcodeService {
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
 			Optional<Ward> w = getWard(pc.get().getOsward());
-			response = PostcodeDTO.from(pc.get(), w.get());
+			Optional<Parish> p = getParish(pc.get().getParish());
+			response = PostcodeDTO.from(pc.get(), w.get(), p.get());
 		}
 
 		return response;
