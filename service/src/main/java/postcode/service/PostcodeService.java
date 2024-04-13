@@ -11,7 +11,8 @@ import postcode.documents.Postcode;
 import postcode.documents.Ward;
 import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
-import postcode.service.model.PostcodeWard;
+import postcode.service.model.PostcodeDTO;
+import postcode.service.model.PostcodeWardDTO;
 
 @Service
 public class PostcodeService {
@@ -38,13 +39,25 @@ public class PostcodeService {
 		return wardRepo.findByWd22cd(wd22cd);
 	}
 
-	public PostcodeWard postcodeWard(String pcd) {
-		PostcodeWard response = null;
+	public PostcodeWardDTO postcodeWard(String pcd) {
+		PostcodeWardDTO response = null;
 
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
 			Optional<Ward> w = getWard(pc.get().getOsward());
-			response = new PostcodeWard.PostcodeWardBuilder(pc.get(), w.get()).build();
+			response = new PostcodeWardDTO.PostcodeWardBuilder(pc.get(), w.get()).build();
+		}
+
+		return response;
+	}
+
+	public PostcodeDTO getPostcodeDTO(String pcd) {
+		PostcodeDTO response = null;
+
+		Optional<Postcode> pc = getPostcodeByPcd(pcd);
+		if (pc.isPresent()) {
+			Optional<Ward> w = getWard(pc.get().getOsward());
+			response = PostcodeDTO.from(pc.get(), w.get());
 		}
 
 		return response;

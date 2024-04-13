@@ -3,11 +3,11 @@ package postcode.service.model;
 import postcode.documents.Postcode;
 import postcode.documents.Ward;
 
-public class PostcodeWard {
+public class PostcodeWardDTO {
 	private Postcode postcode;
 	private Ward ward;
 
-	public PostcodeWard(Postcode postcode, Ward ward) {
+	public PostcodeWardDTO(Postcode postcode, Ward ward) {
 		super();
 		this.postcode = postcode;
 		this.ward = ward;
@@ -38,8 +38,8 @@ public class PostcodeWard {
 			this.ward = ward;
 		}
 
-		public PostcodeWard build() {
-			return new PostcodeWard(postcode, ward);
+		public PostcodeWardDTO build() {
+			return new PostcodeWardDTO(postcode, ward);
 		}
 	}
 

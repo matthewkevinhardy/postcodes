@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import postcode.documents.Postcode;
 import postcode.documents.Ward;
 import postcode.service.PostcodeService;
-import postcode.service.model.PostcodeWard;
+import postcode.service.model.PostcodeDTO;
+import postcode.service.model.PostcodeWardDTO;
 
 @RestController
 public class PostcodeController {
@@ -44,8 +45,14 @@ public class PostcodeController {
 	}
 
 	@GetMapping(path = "/postcodeward/{pcd}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<PostcodeWard> postcodeWard(@PathVariable String pcd) {
-		PostcodeWard postcodeWard = postcodeService.postcodeWard(pcd);
+	public ResponseEntity<PostcodeWardDTO> postcodeWard(@PathVariable String pcd) {
+		PostcodeWardDTO postcodeWard = postcodeService.postcodeWard(pcd);
+		return ResponseEntity.ofNullable(postcodeWard);
+	}
+
+	@GetMapping(path = "/postcodeDTO/{pcd}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<PostcodeDTO> postcodeDTO(@PathVariable String pcd) {
+		PostcodeDTO postcodeWard = postcodeService.getPostcodeDTO(pcd);
 		return ResponseEntity.ofNullable(postcodeWard);
 	}
 }
