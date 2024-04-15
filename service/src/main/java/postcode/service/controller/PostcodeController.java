@@ -52,7 +52,7 @@ public class PostcodeController {
 
 	@GetMapping(path = "/postcodeDTO/{pcd}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<PostcodeDTO> postcodeDTO(@PathVariable String pcd) {
-		PostcodeDTO postcodeWard = postcodeService.getPostcodeDTO(pcd);
+		PostcodeDTO postcodeWard = postcodeService.getPostcodeDTO(pcd.toLowerCase().replaceAll(" ", ""));
 		return ResponseEntity.ofNullable(postcodeWard);
 	}
 }
