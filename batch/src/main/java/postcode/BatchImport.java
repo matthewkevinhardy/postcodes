@@ -2,9 +2,12 @@ package postcode;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.builder.StepBuilder;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
@@ -13,6 +16,7 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -77,8 +81,11 @@ public class BatchImport {
 				reader(Parish.class, new String[] { "PARNCP21CD", "PARNCP21NM" }, new int[] { 0, 1 }, parishFile),
 				writer(parishRepo), null);
 
-		return new JobBuilder("importCsvJob", jobRepository).start(wardStep).next(parishStep).next(postcodeStep)
-				.build();
+		return new JobBuilder("importCsvJob", jobRepository)
+				.start(deleteStep(jobRepository, transactionManager, wardRepo, "delete ward"))
+				.next(deleteStep(jobRepository, transactionManager, parishRepo, "delete parish"))
+				.next(deleteStep(jobRepository, transactionManager, postcodeRepo, "delete postcode")).next(wardStep)
+				.next(parishStep).next(postcodeStep).build();
 	}
 
 	/**
@@ -97,6 +104,19 @@ public class BatchImport {
 
 		return new StepBuilder("importStep", jobRepository).<T, T>chunk(1000, transactionManager)
 				.processor(itemProcessor).reader(reader).writer(writer).build();
+	}
+
+	private <T, ID> Step deleteStep(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+			ElasticsearchRepository<T, ID> repo, String stepName) {
+
+		return new StepBuilder(stepName, jobRepository).tasklet(new Tasklet() {
+
+			@Override
+			public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+				repo.deleteAll();
+				return RepeatStatus.FINISHED;
+			}
+		}, transactionManager).build();
 	}
 
 	/**
