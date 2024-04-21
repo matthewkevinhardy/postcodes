@@ -1,64 +1,53 @@
 package postcode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.testcontainers.elasticsearch.ElasticsearchContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import postcode.documents.Ward;
+import postcode.repos.ParishRepo;
+import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
 
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 @Testcontainers
 public class ServiceTest {
 
-	// @Autowired
-	// private ElasticsearchTemplate elasticsearchTemplate;
-
 	@LocalServerPort
 	private int port;
 
 	@Autowired
-	private WardRepo wardRepo;
-
-	@Autowired
 	private TestRestTemplate restTemplate;
 
-	@Container
-	public static ElasticsearchContainer elasticsearchContainer = new PostcodeElasticsearchContainer();
+	@MockBean
+	WardRepo wardRepo;
 
-	@BeforeAll
-	static void setUp() {
-		elasticsearchContainer.start();
-	}
+	@MockBean
+	PostcodeRepo postcodeRepo;
+
+	@MockBean
+	ParishRepo parishRepo;
 
 	@BeforeEach
 	void testIsContainerRunning() {
-		assertTrue(elasticsearchContainer.isRunning());
-
 		Ward ward = new Ward();
 		ward.setWd22cd("WardId");
 		ward.setWd22nm("WardName");
-		wardRepo.save(ward);
-	}
 
-	@AfterAll
-	static void destroy() {
-		elasticsearchContainer.stop();
+		Mockito.when(wardRepo.findById("WardId")).thenReturn(Optional.of(ward));
+		Mockito.when(wardRepo.findByWd22cd("WardId")).thenReturn(Optional.of(ward));
 	}
 
 	@Test
@@ -70,7 +59,7 @@ public class ServiceTest {
 	@Test
 	void wardEndpointTest() {
 		Ward testWard = this.restTemplate.getForObject("http://localhost:" + port + "/ward/WardId", Ward.class);
-		assertThat(testWard.getWd22cd(), equalTo("WardId"));
-		assertThat(testWard.getWd22nm(), equalTo("WardName"));
+		assertEquals(testWard.getWd22cd(), "WardId");
+		assertEquals(testWard.getWd22nm(), "WardName");
 	}
 }
