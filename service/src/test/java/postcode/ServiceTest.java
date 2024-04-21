@@ -21,7 +21,7 @@ import postcode.repos.ParishRepo;
 import postcode.repos.PostcodeRepo;
 import postcode.repos.WardRepo;
 
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Testcontainers
 public class ServiceTest {
 
