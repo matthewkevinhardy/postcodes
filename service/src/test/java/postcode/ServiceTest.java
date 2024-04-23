@@ -23,13 +23,13 @@ import postcode.repos.WardRepo;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @Testcontainers
-public class ServiceTest {
+class ServiceTest {
 
 	@LocalServerPort
-	private int port;
+	int port;
 
 	@Autowired
-	private TestRestTemplate restTemplate;
+	TestRestTemplate restTemplate;
 
 	@MockBean
 	WardRepo wardRepo;
