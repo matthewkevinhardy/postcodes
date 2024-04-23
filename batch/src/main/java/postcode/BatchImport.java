@@ -71,15 +71,15 @@ public class BatchImport {
 						new String[] { "pcd", "pcd2", "pcds", "dointr", "doterm", "oscty", "ced", "oslaua", "osward",
 								"parish" },
 						new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, postcodeFile),
-				writer(postcodeRepo), postcodeProcessor());
+				writer(postcodeRepo), postcodeProcessor(), "import postcode");
 
 		Step wardStep = importStep(jobRepository, transactionManager,
 				reader(Ward.class, new String[] { "WD22CD", "WD22NM" }, new int[] { 0, 1 }, wardFile), writer(wardRepo),
-				null);
+				null, "import ward");
 
 		Step parishStep = importStep(jobRepository, transactionManager,
 				reader(Parish.class, new String[] { "PARNCP21CD", "PARNCP21NM" }, new int[] { 0, 1 }, parishFile),
-				writer(parishRepo), null);
+				writer(parishRepo), null, "import parsh");
 
 		return new JobBuilder("importCsvJob", jobRepository)
 				.start(deleteStep(jobRepository, transactionManager, wardRepo, "delete ward"))
@@ -100,10 +100,10 @@ public class BatchImport {
 	 * @return
 	 */
 	private <T> Step importStep(JobRepository jobRepository, PlatformTransactionManager transactionManager,
-			ItemReader<T> reader, ItemWriter<T> writer, ItemProcessor<T, T> itemProcessor) {
+			ItemReader<T> reader, ItemWriter<T> writer, ItemProcessor<T, T> itemProcessor, String stepName) {
 
-		return new StepBuilder("importStep", jobRepository).<T, T>chunk(1000, transactionManager)
-				.processor(itemProcessor).reader(reader).writer(writer).build();
+		return new StepBuilder(stepName, jobRepository).<T, T>chunk(1000, transactionManager).processor(itemProcessor)
+				.reader(reader).writer(writer).build();
 	}
 
 	private <T, ID> Step deleteStep(JobRepository jobRepository, PlatformTransactionManager transactionManager,
