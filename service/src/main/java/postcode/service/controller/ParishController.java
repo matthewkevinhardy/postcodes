@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import postcode.documents.Parish;
-import postcode.service.PostcodeService;
+import postcode.service.ParishService;
 
 @RestController
 @RequestMapping("/v1/parish")
@@ -21,10 +21,10 @@ public class ParishController {
 	private static final Logger LOG = LogManager.getLogger(ParishController.class);
 
 	@Autowired
-	private PostcodeService postcodeService;
+	private ParishService parishService;
 
 	@GetMapping(path = "/{pARNCP21CD}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Parish> parish(@PathVariable String pARNCP21CD) {
-		return ResponseEntity.of(postcodeService.getParish(pARNCP21CD));
+		return ResponseEntity.of(parishService.getParish(pARNCP21CD));
 	}
 }

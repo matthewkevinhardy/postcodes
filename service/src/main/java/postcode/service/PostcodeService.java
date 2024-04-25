@@ -32,20 +32,8 @@ public class PostcodeService {
 		return postcodeRepo.findByPcd(pcd);
 	}
 
-	public Optional<Postcode> getPostcode(String id) {
-		return postcodeRepo.findById(id);
-	}
-
 	public Page<Postcode> getPostcodeByWard(String wd22cd, Pageable pageable) {
 		return postcodeRepo.findByOsward(wd22cd, pageable);
-	}
-
-	public Optional<Ward> getWard(String wd22cd) {
-		return wardRepo.findByWd22cd(wd22cd);
-	}
-
-	public Optional<Parish> getParish(String pARNCP21CD) {
-		return parishRepo.findByPARNCP21CD(pARNCP21CD);
 	}
 
 	public PostcodeWardDTO postcodeWard(String pcd) {
@@ -53,7 +41,7 @@ public class PostcodeService {
 
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
-			Optional<Ward> w = getWard(pc.get().getOsward());
+			Optional<Ward> w = wardRepo.findByWd22cd(pc.get().getOsward());
 			response = new PostcodeWardDTO.PostcodeWardBuilder(pc.get(), w.get()).build();
 		}
 
@@ -65,8 +53,8 @@ public class PostcodeService {
 
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
-			Optional<Ward> w = getWard(pc.get().getOsward());
-			Optional<Parish> p = getParish(pc.get().getParish());
+			Optional<Ward> w = wardRepo.findByWd22cd(pc.get().getOsward());
+			Optional<Parish> p = parishRepo.findByPARNCP21CD(pc.get().getParish());
 			response = PostcodeDTO.from(pc.get(), w.get(), p.get());
 		}
 
