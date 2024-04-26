@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import postcode.documents.Ward;
@@ -30,8 +31,8 @@ public class WardController {
 		return ResponseEntity.of(wardService.getWard(wd22cd));
 	}
 
-	@GetMapping(path = "/byName/{wd22cd}", produces = APPLICATION_JSON_VALUE)
-	public Page<Ward> byName(@PathVariable String wd22cd, Pageable pageable) {
-		return wardService.getWardByName(wd22cd, pageable);
+	@GetMapping(produces = APPLICATION_JSON_VALUE)
+	public Page<Ward> byName(@RequestParam(name = "name") String wd22nm, Pageable pageable) {
+		return wardService.getWardByName(wd22nm, pageable);
 	}
 }
