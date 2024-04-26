@@ -58,7 +58,7 @@ class ServiceTest {
 
 	@Test
 	void wardEndpointTest() {
-		Ward testWard = this.restTemplate.getForObject("http://localhost:" + port + "/ward/WardId", Ward.class);
+		Ward testWard = this.restTemplate.getForObject("http://localhost:" + port + "/v1/ward/WardId", Ward.class);
 		assertEquals(testWard.getWd22cd(), "WardId");
 		assertEquals(testWard.getWd22nm(), "WardName");
 	}
