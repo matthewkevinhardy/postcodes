@@ -2,12 +2,17 @@ package postcode.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName = "parish")
 public class Parish {
+
 	@Id
+	@Field(name = "PARNCP21CD", type = FieldType.Keyword)
 	private String PARNCP21CD;
 
+	@Field(name = "PARNCP21NM", type = FieldType.Text)
 	private String PARNCP21NM;
 
 	public String getPARNCP21CD() {

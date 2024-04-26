@@ -3,14 +3,15 @@ package postcode.documents;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName = "ward")
 public class Ward {
 	@Id
-	@Field(name = "WD22CD")
+	@Field(name = "WD22CD", type = FieldType.Keyword)
 	private String wd22cd;
 
-	@Field(name = "WD22NM")
+	@Field(name = "WD22NM", type = FieldType.Text)
 	private String wd22nm;
 
 	public String getWd22cd() {

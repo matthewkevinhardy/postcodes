@@ -2,19 +2,40 @@ package postcode.documents;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 @Document(indexName = "postcode")
 public class Postcode {
+
 	@Id
 	private String pcd;
+
+	@Field(type = FieldType.Keyword)
 	private String pcd2;
+
+	@Field(type = FieldType.Keyword)
 	private String pcds;
+
+	@Field(type = FieldType.Keyword)
 	private String dointr;
+
+	@Field(type = FieldType.Keyword)
 	private String doterm;
+
+	@Field(type = FieldType.Keyword)
 	private String oscty;
+
+	@Field(type = FieldType.Keyword)
 	private String ced;
+
+	@Field(type = FieldType.Keyword)
 	private String oslaua;
+
+	@Field(type = FieldType.Keyword)
 	private String osward;
+
+	@Field(type = FieldType.Keyword)
 	private String parish;
 
 	public String getPcd() {
