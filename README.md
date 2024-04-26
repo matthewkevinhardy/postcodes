@@ -12,10 +12,11 @@ Data from ElasticSearch made available via a webservice hosted within Spring Boo
 `java -jar service/target/service-0.0.1-SNAPSHOT.jar`
 
 ### Ward endpoints
-- 
+- [https://mkhardy.uk.to/postcodes/v1/ward/E05013934](https://mkhardy.uk.to/postcodes/v1/ward/E05013934)
+- [https://mkhardy.uk.to/postcodes/v1/ward/byName/lane](https://mkhardy.uk.to/postcodes/v1/ward/byName/lane)
 
 ### Parish endpoints
-
+- [https://mkhardy.uk.to/postcodes/v1/parish/E43000254](https://mkhardy.uk.to/postcodes/v1/parish/E43000254)
 
 ### Postcode endpoints
 - [https://mkhardy.uk.to/postcodes/v1/postcode/tw27yl](https://mkhardy.uk.to/postcodes/v1/postcode/tw27yl)
