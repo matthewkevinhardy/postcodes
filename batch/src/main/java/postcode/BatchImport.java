@@ -23,7 +23,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
-import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -57,11 +56,6 @@ public class BatchImport {
 
 	@Autowired
 	private ParishRepo parishRepo;
-
-	@Bean
-	public ClientConfiguration clientConfiguration() {
-		return ClientConfiguration.builder().connectedTo("localhost:9200").build();
-	}
 
 	@Bean
 	public Job importCsvJob(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
