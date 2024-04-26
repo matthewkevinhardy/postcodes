@@ -19,7 +19,7 @@ Data from ElasticSearch made available via a webservice hosted within Spring Boo
 
 ### Parish endpoints
 - [https://mkhardy.uk.to/postcodes/v1/parish/E43000254](https://mkhardy.uk.to/postcodes/v1/parish/E43000254)
-- [https://mkhardy.uk.to/postcodes/v1/parish?name=lane](https://mkhardy.uk.to/postcodes/v1/parish?name=lane)
+- [https://mkhardy.uk.to/postcodes/v1/parish?name=end](https://mkhardy.uk.to/postcodes/v1/parish?name=end)
 
 ### Postcode endpoints
 - [https://mkhardy.uk.to/postcodes/v1/postcode/tw27yl](https://mkhardy.uk.to/postcodes/v1/postcode/tw27yl)
