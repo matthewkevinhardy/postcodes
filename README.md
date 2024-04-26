@@ -1,5 +1,7 @@
 # Postcodes Webservice
-[Office For National Statistics](https://geoportal.statistics.gov.uk/search?q=PRD_ONSPD%20FEB_2024&sort=Date%20Created%7Ccreated%7Cdesc)
+Imports ward, parish and postcode data from CSV files into an ElasticSearch index.
+
+Postcode data available from [Office For National Statistics](https://geoportal.statistics.gov.uk/search?q=PRD_ONSPD%20FEB_2024&sort=Date%20Created%7Ccreated%7Cdesc)
 
 ## Batch Import
 CSV data imported using Spring Batch:
