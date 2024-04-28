@@ -16,4 +16,7 @@ public interface PostcodeRepo extends ElasticsearchRepository<Postcode, String> 
 
 	@Query("{\"match\": {\"osward\": {\"query\":\"?0\", \"fuzziness\": \"0\"} }}")
 	public Page<Postcode> findByOsward(String osward, Pageable pageable);
+
+	@Query("{\"match\": {\"parish\": {\"query\":\"?0\", \"fuzziness\": \"0\"} }}")
+	public Page<Postcode> findByParish(String parish, Pageable pageable);
 }
