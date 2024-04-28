@@ -9,6 +9,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 public class Postcode {
 
 	@Id
+	@Field(type = FieldType.Keyword)
 	private String pcd;
 
 	@Field(type = FieldType.Keyword)
