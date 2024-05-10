@@ -10,25 +10,25 @@ public class Parish {
 
 	@Id
 	@Field(name = "PARNCP21CD", type = FieldType.Keyword)
-	private String PARNCP21CD;
+	private String parncp21cd;
 
 	@Field(name = "PARNCP21NM", type = FieldType.Text)
-	private String PARNCP21NM;
+	private String parncp21nm;
 
-	public String getPARNCP21CD() {
-		return PARNCP21CD;
+	public String getParncp21cd() {
+		return parncp21cd;
 	}
 
-	public void setPARNCP21CD(String pARNCP21CD) {
-		PARNCP21CD = pARNCP21CD;
+	public void setParncp21cd(String parncp21cd) {
+		this.parncp21cd = parncp21cd;
 	}
 
-	public String getPARNCP21NM() {
-		return PARNCP21NM;
+	public String getParncp21nm() {
+		return parncp21nm;
 	}
 
-	public void setPARNCP21NM(String pARNCP21NM) {
-		PARNCP21NM = pARNCP21NM;
+	public void setParncp21nm(String parncp21nm) {
+		this.parncp21nm = parncp21nm;
 	}
 
 }

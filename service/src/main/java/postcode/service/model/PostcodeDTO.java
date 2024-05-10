@@ -28,6 +28,6 @@ public class PostcodeDTO {
 	}
 
 	public static PostcodeDTO from(Postcode postcode, Ward ward, Parish parish) {
-		return new PostcodeDTO(postcode.getPcd2(), ward.getWd22nm(), parish.getPARNCP21NM());
+		return new PostcodeDTO(postcode.getPcd2(), ward.getWd22nm(), parish.getParncp21nm());
 	}
 }
