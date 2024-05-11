@@ -23,12 +23,12 @@ public class ParishService {
 	private ParishRepo parishRepo;
 
 	public Optional<Parish> getParish(String pARNCP21CD) {
-		return parishRepo.findByPARNCP21CD(pARNCP21CD);
+		return parishRepo.findByParncp21cd(pARNCP21CD);
 	}
 
 	public Page<Parish> getParishByName(String PARNCP21NM, Pageable pageable) {
 		Pageable updatePageable = IncludeSortableFields.updatePageable(pageable, sortableFields);
 
-		return parishRepo.findByPARNCP21NM(PARNCP21NM, updatePageable);
+		return parishRepo.findByParncp21nm(PARNCP21NM, updatePageable);
 	}
 }

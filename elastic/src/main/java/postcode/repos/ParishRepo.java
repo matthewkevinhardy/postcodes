@@ -12,7 +12,7 @@ import postcode.documents.Parish;
 public interface ParishRepo extends ElasticsearchRepository<Parish, String> {
 
 	@Query("{\"match\": {\"PARNCP21CD\": {\"query\":\"?0\", \"fuzziness\": \"0\"} }}")
-	public Optional<Parish> findByPARNCP21CD(String pARNCP21CD);
+	public Optional<Parish> findByParncp21cd(String parncp21cd);
 
-	public Page<Parish> findByPARNCP21NM(String PARNCP21NM, Pageable pageable);
+	public Page<Parish> findByParncp21nm(String parncp21nm, Pageable pageable);
 }

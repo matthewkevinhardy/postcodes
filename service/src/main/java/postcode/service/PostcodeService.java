@@ -70,7 +70,7 @@ public class PostcodeService {
 		Optional<Postcode> pc = getPostcodeByPcd(pcd);
 		if (pc.isPresent()) {
 			Optional<Ward> w = wardRepo.findByWd22cd(pc.get().getOsward());
-			Optional<Parish> p = parishRepo.findByPARNCP21CD(pc.get().getParish());
+			Optional<Parish> p = parishRepo.findByParncp21cd(pc.get().getParish());
 			response = PostcodeDTO.from(pc.get(), w.get(), p.get());
 		}
 
