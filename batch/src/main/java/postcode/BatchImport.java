@@ -83,6 +83,7 @@ public class BatchImport {
 	}
 
 	/**
+	 * Create import step
 	 * 
 	 * @param <T>
 	 * @param type
@@ -114,6 +115,7 @@ public class BatchImport {
 	}
 
 	/**
+	 * Process a postcode
 	 * 
 	 * @return
 	 */
@@ -129,6 +131,7 @@ public class BatchImport {
 	}
 
 	/**
+	 * Read a csv file
 	 * 
 	 * @param <T>
 	 * @param type
@@ -163,6 +166,14 @@ public class BatchImport {
 		return reader;
 	}
 
+	/**
+	 * Write to repository
+	 * 
+	 * @param <T>
+	 * @param <ID>
+	 * @param repo
+	 * @return
+	 */
 	private <T, ID> ItemWriter<T> writer(ElasticsearchRepository<T, ID> repo) {
 		return new ItemWriter<T>() {
 
